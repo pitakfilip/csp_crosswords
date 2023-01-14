@@ -6,13 +6,13 @@ word may be represented as a *'Position'*, containing information about its star
 (other positions intersecting our block/unit). As a very first step we create a set of possible words for every position (a set of words of a specific length that will fit our position). This will later on be updated 
 with every move, to ensure arc-consistency and mainly prematurely catch a position with no possible words with the current combination of words.
 
-After the setup is done, we want to start our DFS algorithm, where we firstly order our positions with a *Minimal Remaining Value (MRV)* heurestic. There are possibilities to add weights based on specific rules,
+After the setup is done, we want to start our DFS algorithm, where we firstly order our positions with a **Minimal Remaining Value (MRV)** heurestic. There are possibilities to add weights based on specific rules,
 however the main idea is to execute a search via a position with the least possible words, since generally this would mean we would exhaust the possibilities faster, either finding a solution or moving on to the next position.
 
-Once an optimal position is selected, we must pick the right word to use. For this we sort our position's possible word set with *Least Constraining Value (LCV)* heurestic, where we check each word and evaluate how 
+Once an optimal position is selected, we must pick the right word to use. For this we sort our position's possible word set with **Least Constraining Value (LCV)** heurestic, where we check each word and evaluate how 
 big of an impact will it have on our neighbors. Here we can either ignore the impact on our neighbors (this will drastically slow the search for simple crosswords), count in the impact or add a specific weight to each impact.
 
-After chosing an optimal position and placing a word, we must check how we impacted all other positions *(AC3 algorithm)*. The basic idea is to start with the position we changed, iterate through our neighbors and update the position's word set based
+After chosing an optimal position and placing a word, we must check how we impacted all other positions **(AC3 algorithm)**. The basic idea is to start with the position we changed, iterate through our neighbors and update the position's word set based
 on the new constraints. If the word set is changed, we possibly affected the given posistion's neighbors, meaning we follow the same procedure with them until we havent changed a word set, a word set is empty (we used a word which will not 
 lead to a solution) or we checked and updated all positions in the crossword.
  
